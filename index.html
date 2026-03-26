@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bruno Bottone Albert — Portfolio</title>
+  <title>Bruno Bottone Albert — Biografía</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -59,14 +59,15 @@
     .logo span { color: var(--accent); }
 
     nav { display: flex; gap: 6px; flex-wrap: wrap; }
-    nav button {
-      background: none; border: none; cursor: pointer;
+    nav a {
+      text-decoration: none;
       font-family: inherit; font-size: .82rem; font-weight: 500;
       color: var(--ink-soft); padding: 6px 13px;
       border-radius: 50px;
       transition: background .2s, color .2s;
+      display: inline-block;
     }
-    nav button:hover, nav button.active {
+    nav a:hover {
       background: var(--accent-lt); color: var(--accent);
     }
 
@@ -116,16 +117,9 @@
     }
 
     section {
-      display: none; opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .4s ease, transform .4s ease;
-    }
-    section.visible {
       display: block;
-      animation: fadeIn .4s ease forwards;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
+      opacity: 1;
+      margin-bottom: 56px;
     }
 
     .section-title {
@@ -201,7 +195,7 @@
     .bar-fill {
       height: 100%; border-radius: 50px;
       background: linear-gradient(90deg, var(--accent) 0%, #e8a06a 100%);
-      width: 0; transition: width 1s cubic-bezier(.4,0,.2,1);
+      width: 0;
     }
 
     /* ── OBJETIVOS ───────────────────────────── */
@@ -298,13 +292,13 @@
   <header>
     <div class="header-inner">
       <span class="logo">Bruno <span>B.</span></span>
-      <nav id="nav">
-        <button class="active" data-target="sobre-mi">Sobre mí</button>
-        <button data-target="experiencia">Experiencia</button>
-        <button data-target="habilidades">Habilidades</button>
-        <button data-target="objetivos">Objetivos</button>
-        <button data-target="intereses">Intereses</button>
-        <button data-target="contacto">Contacto</button>
+      <nav>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#intereses">Intereses</a>
+        <a href="#contacto">Contacto</a>
       </nav>
     </div>
   </header>
@@ -386,27 +380,27 @@
       <div class="skills-grid" id="skills-grid">
         <div class="skill-item">
           <div class="skill-header"><span>Diseño visual</span><span class="skill-pct">90%</span></div>
-          <div class="bar-bg"><div class="bar-fill" data-pct="90"></div></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
         </div>
         <div class="skill-item">
           <div class="skill-header"><span>Edición de video</span><span class="skill-pct">85%</span></div>
-          <div class="bar-bg"><div class="bar-fill" data-pct="85"></div></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div>
         </div>
         <div class="skill-item">
           <div class="skill-header"><span>Redes sociales</span><span class="skill-pct">92%</span></div>
-          <div class="bar-bg"><div class="bar-fill" data-pct="92"></div></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:92%"></div></div>
         </div>
         <div class="skill-item">
           <div class="skill-header"><span>Fotografía</span><span class="skill-pct">88%</span></div>
-          <div class="bar-bg"><div class="bar-fill" data-pct="88"></div></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:88%"></div></div>
         </div>
         <div class="skill-item">
           <div class="skill-header"><span>HTML & CSS</span><span class="skill-pct">45%</span></div>
-          <div class="bar-bg"><div class="bar-fill" data-pct="45"></div></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:45%"></div></div>
         </div>
         <div class="skill-item">
           <div class="skill-header"><span>Gestión de proyectos</span><span class="skill-pct">75%</span></div>
-          <div class="bar-bg"><div class="bar-fill" data-pct="75"></div></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:75%"></div></div>
         </div>
       </div>
     </section>
@@ -523,47 +517,6 @@
     <p>Hecho con ❤️ por Bruno Bottone Albert · Concepción, Tucumán · 2026</p>
   </footer>
 
-  <script>
-    // ── Navegación ──────────────────────────────
-    const buttons = document.querySelectorAll('nav button');
-    const sections = document.querySelectorAll('main section');
-
-    function showSection(id) {
-      sections.forEach(s => {
-        s.classList.remove('visible');
-        s.style.display = 'none';
-      });
-      buttons.forEach(b => b.classList.remove('active'));
-
-      const target = document.getElementById(id);
-      if (target) {
-        target.style.display = 'block';
-        requestAnimationFrame(() => target.classList.add('visible'));
-      }
-
-      const btn = document.querySelector(`[data-target="${id}"]`);
-      if (btn) btn.classList.add('active');
-
-      // Animar barras al entrar a Habilidades
-      if (id === 'habilidades') animateBars();
-    }
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => showSection(btn.dataset.target));
-    });
-
-    // ── Animación de barras ─────────────────────
-    function animateBars() {
-      setTimeout(() => {
-        document.querySelectorAll('.bar-fill').forEach(bar => {
-          bar.style.width = bar.dataset.pct + '%';
-        });
-      }, 80);
-    }
-
-    // ── Init ────────────────────────────────────
-    showSection('sobre-mi');
-  </script>
 
 </body>
 </html>
