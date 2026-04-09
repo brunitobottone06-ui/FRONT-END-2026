@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Maquetado</title>
+    <style>
+        /* =========================================
+           🎨 ESTILOS GENERALES Y RESET CSS
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        .section-header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        /* =========================================
+           🧩 EJERCICIO 1: TARJETA DE PRODUCTO
+           ========================================= */
+        #ejercicio1 {
+            /* Separación visual clara mediante color de fondo y padding */
+            background-color: #ffffff;
+            padding: 40px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 5px solid #eaeaea;
+        }
+
+        #ejercicio1 .section-header { color: #1a1a1a; }
+
+        .product-card {
+            display: flex;
+            flex-direction: row;
+            background: #fafafa;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            max-width: 900px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image-container {
+            width: 50%;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-details {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .product-details h3 {
+            font-size: 2rem;
+            color: #222;
+        }
+
+        .product-details p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .product-details .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007aff;
+            margin: 10px 0;
+        }
+
+        .btn-comprar {
+            padding: 15px 30px;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .btn-comprar:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Ejercicio 1 */
+        @media (max-width: 768px) {
+            .product-card {
+                flex-direction: column;
+            }
+            .product-image-container, .product-details {
+                width: 100%;
+            }
+            .product-image-container img {
+                height: 350px;
+            }
+        }
+
+        /* =========================================
+           🧩 EJERCICIO 2: NAVBAR
+           ========================================= */
+        #ejercicio2 {
+            background-color: #f0f4f8;
+            padding-bottom: 80px;
+            border-bottom: 5px solid #d9e2ec;
+        }
+
+        #ejercicio2 .section-header { color: #102a43; }
+
+        .custom-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #102a43;
+            padding: 20px 5%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-logo {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu li a {
+            color: #bcccdc;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Ejercicio 2 (Ocultar menú en móvil sin JS) */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        /* =========================================
+           🧩 EJERCICIO 3: PANEL ADMINISTRATIVO
+           ========================================= */
+        #ejercicio3 {
+            background-color: #e4e7eb;
+            padding: 40px 20px 80px;
+            border-bottom: 5px solid #cbd2d9;
+        }
+
+        #ejercicio3 .section-header { color: #323f4b; }
+
+        .admin-container {
+            display: flex;
+            height: 700px; /* Altura definida para contener el scroll interno */
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #1f2933;
+            color: white;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            /* Permanece fijo en relación al contenedor admin */
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            background-color: #13171c;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .sidebar-nav li {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            color: #9aa5b1;
+        }
+
+        .sidebar-nav li:hover {
+            background-color: #323f4b;
+            border-left-color: #3eabd6;
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: #f5f7fa;
+            /* Scroll independiente para el contenido derecho */
+            overflow-y: auto; 
+        }
+
+        .main-content h2 {
+            margin-bottom: 30px;
+            color: #1f2933;
+            font-size: 1.8rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .dash-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .dash-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .dash-card h4 {
+            color: #3e4c59;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Ejercicio 3 */
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            .main-content {
+                overflow-y: visible;
+            }
+        }
+
+        /* =========================================
+           🧩 EJERCICIO 4: GRID DE PROYECTOS
+           ========================================= */
+        #ejercicio4 {
+            background-color: #111111;
+            padding: 40px 5% 100px;
+        }
+
+        #ejercicio4 .section-header { 
+            color: #ffffff; 
+            margin-bottom: 20px;
+        }
+
+        .projects-wrapper {
+            display: grid;
+            /* Responsive automático con CSS Grid */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-item {
+            background-color: #222222;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-item .project-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .project-item h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="ejercicio1">
+        <h2 class="section-header">Ejercicio 1</h2>
+        <article class="product-card">
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Auriculares premium tipo AirPods Max color rosa sobre fondo neutro">
+            </div>
+            <div class="product-details">
+                <h3>AirPods Max Premium</h3>
+                <p>Experimenta el equilibrio perfecto entre un audio de alta fidelidad asombroso y la mágica facilidad de uso. Cancelación activa de ruido líder en la industria y audio espacial para una inmersión total en cada nota.</p>
+                <span class="price">$549.00</span>
+                <button class="btn-comprar">Comprar ahora</button>
+            </div>
+        </article>
+    </section>
+
+    <section id="ejercicio2">
+        <h2 class="section-header">Ejercicio 2</h2>
+        <nav class="custom-navbar">
+            <div class="nav-logo">Mi Sitio Web</div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </section>
+
+    <section id="ejercicio3">
+        <h2 class="section-header">Ejercicio 3</h2>
+        <div class="admin-container">
+            <aside class="sidebar">
+                <div class="sidebar-header">ADMIN PRO</div>
+                <ul class="sidebar-nav">
+                    <li>📊 Dashboard</li>
+                    <li>👥 Usuarios</li>
+                    <li>🛒 Pedidos</li>
+                    <li>⚙️ Configuración</li>
+                    <li>📈 Analíticas</li>
+                </ul>
+            </aside>
+            <main class="main-content">
+                <h2>Resumen de Actividad</h2>
+                <div class="dashboard-grid">
+                    <div class="dash-card">
+                        <img src="https://picsum.photos/seed/dash1/300/200" alt="Gráfico de crecimiento de ventas mensuales">
+                        <h4>Ventas del Mes</h4>
+                    </div>
+                    <div class="dash-card">
+                        <img src="https://picsum.photos/seed/dash2/300/200" alt="Mapa de calor de interacciones de usuarios">
+                        <h4>Interacciones</h4>
+                    </div>
+                    <div class="dash-card">
+                        <img src="https://picsum.photos/seed/dash3/300/200" alt="Diagrama de flujo de conversiones de clientes">
+                        <h4>Tasa de Conversión</h4>
+                    </div>
+                    <div class="dash-card">
+                        <img src="https://picsum.photos/seed/dash4/300/200" alt="Estadísticas demográficas de nuevos registros">
+                        <h4>Nuevos Registros</h4>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <section id="ejercicio4">
+        <h2 class="section-header">Ejercicio 4</h2>
+        <div class="projects-wrapper">
+            <article class="project-item">
+                <img src="https://picsum.photos/seed/port1/400/300" alt="Diseño de interfaz de aplicación móvil deportiva">
+                <div class="project-info">
+                    <h3>Proyecto 1</h3>
+                </div>
+            </article>
+            <article class="project-item">
+                <img src="https://picsum.photos/seed/port2/400/300" alt="Fotografía de producto para marca de café artesanal">
+                <div class="project-info">
+                    <h3>Proyecto 2</h3>
+                </div>
+            </article>
+            <article class="project-item">
+                <img src="https://picsum.photos/seed/port3/400/300" alt="Desarrollo de sitio web corporativo moderno">
+                <div class="project-info">
+                    <h3>Proyecto 3</h3>
+                </div>
+            </article>
+            <article class="project-item">
+                <img src="https://picsum.photos/seed/port4/400/300" alt="Campaña de branding y logo para restaurante local">
+                <div class="project-info">
+                    <h3>Proyecto 4</h3>
+                </div>
+            </article>
+            <article class="project-item">
+                <img src="https://picsum.photos/seed/port5/400/300" alt="Ilustración digital para portada de revista editorial">
+                <div class="project-info">
+                    <h3>Proyecto 5</h3>
+                </div>
+            </article>
+            <article class="project-item">
+                <img src="https://picsum.photos/seed/port6/400/300" alt="Sistema de diseño de componentes de interfaz">
+                <div class="project-info">
+                    <h3>Proyecto 6</h3>
+                </div>
+            </article>
+        </div>
+    </section>
+
+</body>
+</html>

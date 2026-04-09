@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicios de Maquetado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+    }
+
+    section {
+      padding: 60px 20px;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    /* =========================
+       EJERCICIO 1 - PRODUCTO
+    ========================= */
+
+    #ejercicio1 {
+      display: flex;
+      justify-content: center;
+    }
+
+    .producto-card {
+      display: flex;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .producto-img {
+      flex: 1;
+    }
+
+    .producto-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .producto-info {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .precio {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007aff;
+    }
+
+    .btn {
+      padding: 10px;
+      border: none;
+      background: #007aff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #005ecb;
+    }
+
+    @media(max-width: 768px) {
+      .producto-card {
+        flex-direction: column;
+      }
+    }
+
+    /* =========================
+       EJERCICIO 2 - NAVBAR
+    ========================= */
+
+    #ejercicio2 {
+      background: #111;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .menu a:hover {
+      color: #00c3ff;
+    }
+
+    @media(max-width: 768px) {
+      .menu {
+        display: none;
+      }
+    }
+
+    /* =========================
+       EJERCICIO 3 - DASHBOARD
+    ========================= */
+
+    #ejercicio3 {
+      padding: 0;
+      height: 100vh;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #222;
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+    }
+
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+      width: calc(100% - 220px);
+      overflow-y: auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .card p {
+      padding: 10px;
+    }
+
+    /* =========================
+       EJERCICIO 4 - GRID
+    ========================= */
+
+    #ejercicio4 {
+      background: #fafafa;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .proyecto {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .proyecto:hover {
+      transform: scale(1.03);
+    }
+
+    .proyecto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .proyecto h4 {
+      padding: 10px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- EJERCICIO 1 -->
+  <section id="ejercicio1">
+    <div>
+      <h2>EJERCICIO 1</h2>
+
+      <div class="producto-card">
+        <div class="producto-img">
+          <img src="https://source.unsplash.com/600x400/?headphones" alt="Auriculares premium">
+        </div>
+
+        <div class="producto-info">
+          <h3>Auriculares Pro Max</h3>
+          <p>Sonido envolvente con cancelación de ruido activa y diseño premium.</p>
+          <span class="precio">$999 USD</span>
+          <button class="btn">Comprar ahora</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EJERCICIO 2 -->
+  <section id="ejercicio2">
+    <div>
+      <h2>EJERCICIO 2</h2>
+
+      <div class="navbar">
+        <h3>Mi Sitio Web</h3>
+
+        <div class="menu">
+          <a href="#">Inicio</a>
+          <a href="#">Servicios</a>
+          <a href="#">Contacto</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EJERCICIO 3 -->
+  <section id="ejercicio3">
+
+    <div class="sidebar">
+      <h3>Admin Panel</h3>
+      <p>Dashboard</p>
+      <p>Usuarios</p>
+      <p>Configuración</p>
+    </div>
+
+    <div class="content">
+      <h2>EJERCICIO 3</h2>
+
+      <div class="cards">
+        <div class="card">
+          <img src="https://picsum.photos/300/200?random=1" alt="Estadística">
+          <p>Estadísticas</p>
+        </div>
+
+        <div class="card">
+          <img src="https://picsum.photos/300/200?random=2" alt="Usuarios">
+          <p>Usuarios</p>
+        </div>
+
+        <div class="card">
+          <img src="https://picsum.photos/300/200?random=3" alt="Ventas">
+          <p>Ventas</p>
+        </div>
+
+        <div class="card">
+          <img src="https://picsum.photos/300/200?random=4" alt="Reportes">
+          <p>Reportes</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EJERCICIO 4 -->
+  <section id="ejercicio4">
+    <div>
+      <h2>EJERCICIO 4</h2>
+
+      <div class="grid">
+
+        <div class="proyecto">
+          <img src="https://source.unsplash.com/300x200/?website" alt="Proyecto 1">
+          <h4>Proyecto 1</h4>
+        </div>
+
+        <div class="proyecto">
+          <img src="https://source.unsplash.com/300x200/?app" alt="Proyecto 2">
+          <h4>Proyecto 2</h4>
+        </div>
+
+        <div class="proyecto">
+          <img src="https://source.unsplash.com/300x200/?design" alt="Proyecto 3">
+          <h4>Proyecto 3</h4>
+        </div>
+
+        <div class="proyecto">
+          <img src="https://source.unsplash.com/300x200/?coding" alt="Proyecto 4">
+          <h4>Proyecto 4</h4>
+        </div>
+
+        <div class="proyecto">
+          <img src="https://source.unsplash.com/300x200/?startup" alt="Proyecto 5">
+          <h4>Proyecto 5</h4>
+        </div>
+
+        <div class="proyecto">
+          <img src="https://source.unsplash.com/300x200/?technology" alt="Proyecto 6">
+          <h4>Proyecto 6</h4>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
