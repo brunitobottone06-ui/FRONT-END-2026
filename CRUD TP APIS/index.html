@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PostVault — CRUD Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== TOAST NOTIFICATIONS ===== -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">◈</span>
+        <span class="brand-name">PostVault</span>
+        <span class="brand-tag">API CRUD</span>
+      </div>
+      <nav class="header-stats" id="header-stats">
+        <span class="stat-chip" id="stat-total">
+          <span class="stat-num">—</span>
+          <span class="stat-label">posts</span>
+        </span>
+        <span class="stat-chip status-chip" id="stat-status">
+          <span class="status-dot"></span>
+          <span>jsonplaceholder.typicode.com</span>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <main class="main-layout">
+
+    <!-- ===== SIDEBAR: FORMULARIO ===== -->
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <div class="panel-header">
+          <h2 class="panel-title" id="form-title">Nuevo Post</h2>
+          <span class="panel-mode" id="form-mode-badge">CREATE</span>
+        </div>
+
+        <!-- Formulario de creación / edición -->
+        <form id="post-form" novalidate>
+          <!-- Campo oculto para almacenar el ID en modo edición -->
+          <input type="hidden" id="post-id" />
+
+          <div class="field-group">
+            <label class="field-label" for="post-userId">
+              User ID
+              <span class="field-required">*</span>
+            </label>
+            <input
+              class="field-input"
+              type="number"
+              id="post-userId"
+              name="userId"
+              placeholder="1 – 10"
+              min="1"
+              max="10"
+              required
+            />
+            <span class="field-error" id="error-userId"></span>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="post-title">
+              Título
+              <span class="field-required">*</span>
+            </label>
+            <input
+              class="field-input"
+              type="text"
+              id="post-title"
+              name="title"
+              placeholder="Escribe un título..."
+              maxlength="120"
+              required
+            />
+            <span class="field-hint" id="title-count">0 / 120</span>
+            <span class="field-error" id="error-title"></span>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="post-body">
+              Contenido
+              <span class="field-required">*</span>
+            </label>
+            <textarea
+              class="field-input field-textarea"
+              id="post-body"
+              name="body"
+              placeholder="Escribe el contenido del post..."
+              maxlength="500"
+              rows="5"
+              required
+            ></textarea>
+            <span class="field-hint" id="body-count">0 / 500</span>
+            <span class="field-error" id="error-body"></span>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="submit-btn">
+              <span class="btn-icon">✦</span>
+              <span class="btn-text">Crear Post</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="cancel-btn" hidden>
+              Cancelar
+            </button>
+          </div>
+        </form>
+
+        <!-- Info del recurso API -->
+        <div class="api-info">
+          <p class="api-info-title">Endpoint activo</p>
+          <code class="api-endpoint">GET /posts</code>
+          <code class="api-endpoint" id="api-endpoint-current">POST /posts</code>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== CONTENIDO: LISTA DE POSTS ===== -->
+    <section class="content-area" aria-label="Lista de posts">
+
+      <!-- Barra de herramientas -->
+      <div class="content-toolbar">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="Buscar posts..."
+            aria-label="Buscar posts"
+          />
+        </div>
+        <div class="toolbar-controls">
+          <select class="select-control" id="filter-user" aria-label="Filtrar por usuario">
+            <option value="">Todos los usuarios</option>
+          </select>
+          <button class="btn btn-outline btn-sm" id="refresh-btn" title="Recargar posts">
+            ↺ Recargar
+          </button>
+        </div>
+      </div>
+
+      <!-- Estado: cargando -->
+      <div class="state-screen" id="loading-screen" hidden>
+        <div class="loader-ring"></div>
+        <p class="state-text">Cargando posts desde la API…</p>
+      </div>
+
+      <!-- Estado: error -->
+      <div class="state-screen" id="error-screen" hidden>
+        <div class="state-icon">⚠</div>
+        <p class="state-text" id="error-message">No se pudo conectar con la API.</p>
+        <button class="btn btn-outline" id="retry-btn">Reintentar</button>
+      </div>
+
+      <!-- Estado: sin resultados -->
+      <div class="state-screen" id="empty-screen" hidden>
+        <div class="state-icon">◌</div>
+        <p class="state-text">No se encontraron posts.</p>
+      </div>
+
+      <!-- Grid de tarjetas -->
+      <div class="posts-grid" id="posts-grid" role="list"></div>
+
+      <!-- Paginación -->
+      <div class="pagination" id="pagination"></div>
+
+    </section>
+
+  </main>
+
+  <!-- ===== MODAL DE CONFIRMACIÓN (DELETE) ===== -->
+  <div class="modal-overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-box">
+      <div class="modal-icon">⚠</div>
+      <h3 class="modal-title" id="modal-title">Eliminar post</h3>
+      <p class="modal-body" id="modal-body">¿Estás seguro de que deseas eliminar este post? Esta acción no se puede deshacer.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modal-cancel">Cancelar</button>
+        <button class="btn btn-danger" id="modal-confirm">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
